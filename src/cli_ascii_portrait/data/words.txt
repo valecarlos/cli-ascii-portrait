@@ -1,0 +1,12 @@
+# default buzzword pool
+# (lines starting with # are comments and are skipped by the loader)
+React TypeScript JavaScript AI Agents Postgres Terraform Kubernetes k8s Docker
+Rust Go Python Node Deno Bun Vite Next Svelte Vue Redux GraphQL REST gRPC API
+SQL NoSQL Redis Kafka Mongo AWS GCP Azure Lambda Serverless CI CD DevOps GitOps
+git npm pnpm yarn LLM RAG MCP Claude prompt vector embeddings Tailwind CSS HTML
+WASM edge cloud infra Helm Argo Grafana Prometheus OTel Linux bash Vim Neovim
+monorepo Nx Turbo Jest Vitest Playwright Cypress Zod tRPC Prisma Drizzle
+Supabase Vercel Netlify Nginx Envoy Istio Ansible Pulumi YAML JSON SaaS MLOps
+microservices webhook OAuth JWT SSO CQRS DDD TDD agile scrum sprint backlog
+refactor deploy rollback canary latency cache shard queue stream async await
+Copilot Cursor LangChain PyTorch CUDA GPU ETL dbt Spark Airflow Snowflake
