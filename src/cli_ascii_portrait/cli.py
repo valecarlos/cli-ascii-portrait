@@ -45,7 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--ats", action="store_true",
                     help="only use separators that split words for parsers")
     ap.add_argument("--invert", action="store_true", help="dense text = bright (dark backgrounds)")
-    ap.add_argument("--crop", type=parse_crop, help="crop box left,top,right,bottom in source pixels")
+    ap.add_argument("--crop", type=parse_crop, help="crop box corners left,top,right,bottom in source pixels (not margins)")
     ap.add_argument("--preset", choices=sorted(PRESETS),
                     help="github: 96 cols, GitHub code-block aspect, --ats")
     return ap
@@ -56,7 +56,8 @@ def main(argv: list[str] | None = None) -> None:
 
     Tests can pass their own list instead, e.g. main(["photo.png", "--cols", "40"]).
     """
-    args = build_parser().parse_args(argv)
+    parser = build_parser()
+    args = parser.parse_args(argv)
 
     # Copy every argument whose name matches a Settings field into Settings.
     # `args` is a Namespace (attribute-style object); vars() turns it into a dict.
@@ -67,7 +68,10 @@ def main(argv: list[str] | None = None) -> None:
     # Apply the preset here (not only inside generate) so that the summary
     # below reports the real width, e.g. 96 columns for --preset github.
     settings = with_preset(settings)
-    result = generate(args.image, settings)
+    try:
+        result = generate(args.image, settings)
+    except ValueError as e:                            # e.g. a bad --crop box
+        parser.error(str(e))                           # prints usage + message, exits with code 2
 
     out = settings.out
     rows = len(result.lines)

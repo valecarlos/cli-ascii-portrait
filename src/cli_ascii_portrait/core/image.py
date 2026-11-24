@@ -16,6 +16,15 @@ def load_image(source, crop=None) -> Image.Image:
     im = source if isinstance(source, Image.Image) else Image.open(source)
     im = im.convert("RGB")
     if crop:
+        left, top, right, bottom = crop
+        if not (0 <= left < right <= im.width and 0 <= top < bottom <= im.height):
+            raise ValueError(
+                f"--crop {left},{top},{right},{bottom} is not a box inside the "
+                f"{im.width}x{im.height} image. It is left,top,right,bottom corner "
+                f"coordinates (not margins), so it needs 0 <= left < right <= {im.width} "
+                f"and 0 <= top < bottom <= {im.height}. "
+                f"To trim 10px from every side use --crop 10,10,{im.width - 10},{im.height - 10}"
+            )
         im = im.crop(crop)
     return im
 
